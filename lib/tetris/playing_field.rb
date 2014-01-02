@@ -3,10 +3,11 @@ module Tetris
     def initialize(window)
       @window = window
       @pieces = []
+      new_piece
     end
 
     def new_piece
-      @pieces << Piece.new(@window, :T, "purple", {x: WIDTH / 2, y: 0})
+      @pieces << Piece.new(@window, PIECES.keys.sample, COLORS.sample, {x: WIDTH / 2, y: 0})
     end
 
     def draw
@@ -30,6 +31,7 @@ module Tetris
     end
 
     def rotate
+      active_piece.rotate
     end
 
     def move_down

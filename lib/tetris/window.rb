@@ -2,17 +2,12 @@ require "gosu"
 require "pry"
 
 module Tetris
-    BLOCK_SIZE = 32
-    HEIGHT = 20 * BLOCK_SIZE
-    WIDTH = 10 * BLOCK_SIZE
-
   class Window < Gosu::Window
     def initialize
       super(WIDTH, HEIGHT, false)
       self.caption = "Tetris"
       @background = Gosu::Image.new(self, "media/images/background.png", true)
       @playing_field = PlayingField.new(self)
-      @playing_field.new_piece
       @frame = 0;
     end
 
@@ -29,6 +24,12 @@ module Tetris
         end
         if button_down?(Gosu::KbDown) || button_down?(Gosu::GpDown)
           @playing_field.move_down
+        end
+      end
+
+      if @frame % 6 == 0
+        if button_down?(Gosu::KbUp) || button_down?(Gosu::GpUp)
+          @playing_field.rotate
         end
       end
     end
